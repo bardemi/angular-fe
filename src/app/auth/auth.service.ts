@@ -25,7 +25,8 @@ export class AuthService {
      */
     @log
     async login(username: string | undefined, password: string | undefined) {
-        let rollen: Array<string> = []
+        // let rollen: Array<string> = []
+        let rollen;
         try {
             rollen = await this.basicAuthService.login(username, password)
             console.log('AuthService.login()', rollen)
