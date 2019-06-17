@@ -14,7 +14,7 @@ import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
 import { BasicAuthService } from 'src/app/auth/basic-auth.service';
 
-@Injectable
+@Injectable({ providedIn: 'root' })
 export class KundeService {
     private baseUriKunden: string
     private kundenSubject = new Subject<Array<Kunde>>()
