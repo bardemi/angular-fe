@@ -12,8 +12,9 @@ import {
 import { filter, map, find } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
+import { BasicAuthService } from 'src/app/auth/basic-auth.service';
 
-@Injectable
+@Injectable({ providedIn: 'root' })
 export class KundeService {
     private baseUriKunden: string
     private kundenSubject = new Subject<Array<Kunde>>()
@@ -208,5 +209,81 @@ export class KundeService {
             .subscribe(location => successFn(location), errorFnPost)
     }
 
+    @log
+    update(
+        kunde: Kunde,
+        successFn: () => void,
+        errorFn: (
+            status: number,
+            errors: { [s: string]: any } | undefined,
+        ) => void,
+    ) {
+        const { version } = kunde
+        if (version === undefined) {
+            console.error(`Keine Versionsnummer fuer das Kunde ${kunde._id}`)
+            return
+        }
+        const errorFnPut = (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+                console.error(
+                    'Client-seitiger oder Netzwerkfehler',
+                    err.error.message,
+                )
+            } else if (errorFn === undefined) {
+                console.error('errorFnPut', err)
+            } else {
+                errorFn(err.status, err.error)
+            }
+        }
 
+        const uri = `${this.baseUriKunden}/${kunde._id}`
+        this.headers = this.headers.append('If-Match', version.toString())
+        console.log('headers=', this.headers)
+        this.httpClient
+            .put(uri, kunde, { headers: this.headers })
+            .subscribe(successFn, errorFnPut)
+    }
+
+    @log
+    remove(
+        kunde: Kunde,
+        successFn: (() => void) | undefined,
+        errorFn: (status: number) => void,
+    ) {
+        const uri = `${this.baseUriKunden}/${kunde._id}`
+
+        const errorFnDelete = (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+                console.error(
+                    'Client-seitiger oder Netzwerkfehler',
+                    err.error.message,
+                )
+            } else if (errorFn === undefined) {
+                console.error('errorFnPut', err)
+            } else {
+                errorFn(err.status)
+            }
+        }
+
+        this.httpClient.delete(uri).subscribe(successFn, errorFnDelete)
+    }
+
+    @log
+    private suchkriterienToHttpParams(suchkriterien): HttpParams {
+        let httpParams = new HttpParams()
+
+        if (suchkriterien.nachname !== undefined && suchkriterien.nachname !=='') {
+            httpParams = httpParams.set('nachname', suchkriterien.nachname)
+        }
+        if (suchkriterien.email !== undefined && suchkriterien.email !=='') {
+            httpParams = httpParams.set('email', suchkriterien.email)
+        }
+        if (suchkriterien.umsatz !== undefined && suchkriterien.umsatz !=='') {
+            httpParams = httpParams.set('umsatz', suchkriterien.umsatz)
+        }
+        if (suchkriterien.homepage !== undefined && suchkriterien.homepage !=='') {
+            httpParams = httpParams.set('homepage', suchkriterien.homepage)
+        }
+        return httpParams
+    }
 }
