@@ -1,9 +1,9 @@
 {
-    "nachname": "Test2",
-    "email": "?!$",
-    "kategorie" : 11,
+    "nachname": "Testput",
+    "email": "Theo@Test.de.put",
+    "kategorie" : 1,
     "newsletter": true,
-    "geburtsdatum": "2018-01-31",
+    "geburtsdatum": "2017-01-31",
     "umsatz": {
         "betrag": 0,
         "waehrung": "EUR"
@@ -16,11 +16,7 @@
         "L"
     ],
     "adresse": {
-        "plz": "1234",
+        "plz": "12345",
         "ort": "Testort"
-    },
-    "user": {
-        "username": "test",
-        "password": "p"
     }
 }
