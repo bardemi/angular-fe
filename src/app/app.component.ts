@@ -5,7 +5,6 @@ import { Component, VERSION } from '@angular/core'
     selector: 'kunde-root',
     templateUrl: './app.component.html',
 })
-
 export class AppComponent {
     title = 'kunde'
 
@@ -20,9 +19,7 @@ export class AppComponent {
         try {
             eval('[0,[1]].flat();') // eslint-disable-line no-eval
         } catch (err) {
-            console.error(
-                'Browser ist nicht mit ES2019 kompatibel.',
-            )
+            console.error('Browser ist nicht mit ES2019 kompatibel.')
             return
         }
         console.info('Browser unterstuetzt ES2019')

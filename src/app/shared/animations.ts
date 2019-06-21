@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export const easeIn = trigger('easeIn', [
-    state('active', style({transform: 'translateX(0)'})),
+    state('active', style({ transform: 'translateX(0)' })),
     transition(':enter', [
         style({
             transform: 'translateX(-100%)',

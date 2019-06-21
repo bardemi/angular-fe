@@ -12,7 +12,7 @@ import {
 import { filter, map, find } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
-import { BasicAuthService } from 'src/app/auth/basic-auth.service';
+import { BasicAuthService } from 'src/app/auth/basic-auth.service'
 
 @Injectable({ providedIn: 'root' })
 export class KundeService {
@@ -26,12 +26,10 @@ export class KundeService {
 
     private headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        Accept: 'text/plain'
+        Accept: 'text/plain',
     })
 
-    constructor(
-        private readonly httpClient: HttpClient,
-    ) {
+    constructor(private readonly httpClient: HttpClient) {
         this.baseUriKunden = `${BASE_URI}/${KUNDEN_PATH}`
         console.log(
             `KundeService.constructor(): baseUriKunde=${this.baseUriKunden}`,
@@ -65,7 +63,7 @@ export class KundeService {
         console.log(`KundeService.find(): uri=${uri}`)
 
         const errorFn = (err: HttpErrorResponse) => {
-            if(err.error instanceof ProgressEvent) {
+            if (err.error instanceof ProgressEvent) {
                 console.error('Client-seitiger oder Netzwerkfehler', err.error)
                 this.errorSubject.next(-1)
                 return
@@ -85,10 +83,12 @@ export class KundeService {
             .pipe(
                 map(jsonArray =>
                     jsonArray.map(jsonObjekt => Kunde.fromServer(jsonObjekt)),
-
-                )
+                ),
             )
-            .subscribe(kunden => this._kunde.kundenSubject.next(kunden), errorFn)
+            .subscribe(
+                kunden => this._kunde.kundenSubject.next(kunden),
+                errorFn,
+            )
     }
 
     @log
@@ -272,16 +272,22 @@ export class KundeService {
     private suchkriterienToHttpParams(suchkriterien): HttpParams {
         let httpParams = new HttpParams()
 
-        if (suchkriterien.nachname !== undefined && suchkriterien.nachname !=='') {
+        if (
+            suchkriterien.nachname !== undefined &&
+            suchkriterien.nachname !== ''
+        ) {
             httpParams = httpParams.set('nachname', suchkriterien.nachname)
         }
-        if (suchkriterien.email !== undefined && suchkriterien.email !=='') {
+        if (suchkriterien.email !== undefined && suchkriterien.email !== '') {
             httpParams = httpParams.set('email', suchkriterien.email)
         }
-        if (suchkriterien.umsatz !== undefined && suchkriterien.umsatz !=='') {
+        if (suchkriterien.umsatz !== undefined && suchkriterien.umsatz !== '') {
             httpParams = httpParams.set('umsatz', suchkriterien.umsatz)
         }
-        if (suchkriterien.homepage !== undefined && suchkriterien.homepage !=='') {
+        if (
+            suchkriterien.homepage !== undefined &&
+            suchkriterien.homepage !== ''
+        ) {
             httpParams = httpParams.set('homepage', suchkriterien.homepage)
         }
         return httpParams

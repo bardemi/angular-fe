@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import { Component } from '@angular/core'
 
 @Component({
     selector: 'kunde-main',
@@ -8,7 +8,6 @@ import {Component} from '@angular/core'
         </main>
     `,
 })
-
 export class MainComponent {
     constructor() {
         console.log('MainComponent.constructor()')

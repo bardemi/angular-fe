@@ -6,6 +6,6 @@ import { NgModule } from '@angular/core'
 @NgModule({
     declarations: [HeaderComponent],
     exports: [HeaderComponent],
-    imports: [LogoModule, NavModule]
+    imports: [LogoModule, NavModule],
 })
 export class HeaderModule {}

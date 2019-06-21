@@ -26,7 +26,7 @@ export function log(
         const result = originalMethod.apply(this, args)
 
         const resultStr = `< ${klassenname}.${key as string}(): result =`
-        
+
         if (result === undefined) {
             console.log(`${resultStr} void || undefined`)
         } else {

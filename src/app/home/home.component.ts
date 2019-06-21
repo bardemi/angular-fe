@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { fadeIn, log } from '../shared'
 import { Title } from '@angular/platform-browser'
 

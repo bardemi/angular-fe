@@ -8,7 +8,7 @@ import { SucheKundenComponent } from './kunde/suche-kunden/suche-kunden.componen
 import { UpdateKundeComponent } from './kunde/update-kunde/update-kunde.component'
 
 export const ROUTES = [
-    { path: HOME_PATH, component: HomeComponent},
+    { path: HOME_PATH, component: HomeComponent },
     {
         path: '',
         redirectTo: HOME_PATH,

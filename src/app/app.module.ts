@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { HomeModule } from './home/home.module';
+import { NgModule } from '@angular/core'
+import { AppComponent } from './app.component'
+import { HomeModule } from './home/home.module'
 import { authInterceptorProviders } from './auth/auth.interceptor'
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser'
 import { environment } from '../environments/environment'
-import { RouterModule } from '@angular/router';
-import { ROUTES } from './routes';
+import { RouterModule } from '@angular/router'
+import { ROUTES } from './routes'
 import { CreateKundeModule } from './kunde/create-kunde/create-kunde.module'
 import { DetailsKundeModule } from './kunde/details-kunde/details-kunde.module'
 import { FooterModule } from './layout/footer/footer.module'
@@ -39,5 +39,4 @@ import { UpdateKundeModule } from './kunde/update-kunde/update-kunde.module'
     providers: [authInterceptorProviders],
     bootstrap: [AppComponent],
 })
-
 export class AppModule {}
