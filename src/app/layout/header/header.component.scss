@@ -1,0 +1,17 @@
+@import '../../sass/colors';
+
+$gradient: url(/assets/img/gradientBlueSky.png);
+
+.kunde-nav {
+    background-color: $background-color;
+    background-position: left top;
+    background-repeat: repeat-x;
+    background-image: $gradient;
+    // display: block;
+}
+
+.router-link-active {
+    font-weight: bold;
+    font-style: italic;
+    font-stretch: expanded;
+}
