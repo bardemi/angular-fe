@@ -1,30 +1,7 @@
-// tslint:disable:max-file-line-count
-
-/*
- * Copyright (C) 2015 - present Juergen Zimmermann, Hochschule Karlsruhe
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/* eslint-disable max-lines */
 
 import * as moment from 'moment'
 import 'moment/locale/de'
-
-// Alternativen zu Moment
-//  https://github.com/date-fns/date-fns
-//      https://github.com/date-fns/date-fns/issues/275#issuecomment-264934189
-//  https://github.com/moment/luxon
-//  https://github.com/iamkun/dayjs
 
 moment.locale('de')
 
@@ -61,7 +38,7 @@ export interface User {
 
 type UUID = string
 /**
- * Gemeinsame Datenfelder unabh&auml;ngig, ob die Buchdaten von einem Server
+ * Gemeinsame Datenfelder unabh&auml;ngig, ob die Kundendaten von einem Server
  * (z.B. RESTful Web Service) oder von einem Formular kommen.
  */
 export interface KundeShared {
@@ -133,6 +110,8 @@ export class Kunde {
     betrag: any
     waehrung: any
     kategorieArray: Array<boolean> = []
+
+    datum: moment.Moment | undefined
 
     // wird aufgerufen von fromServer() oder von fromForm()
     private constructor(

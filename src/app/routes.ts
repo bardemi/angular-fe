@@ -1,5 +1,6 @@
-import { HOME_PATH, DETAILS_KUNDE_PATH } from './shared'
-import { AdminGuard } from './auth/admin.guard'
+// import { HOME_PATH, DETAILS_KUNDE_PATH } from './shared'
+import { HOME_PATH } from './shared'
+// import { AdminGuard } from './auth/admin.guard'
 // import { CreateKundeComponent } from './kunde/create-kunde/create-kunde.component'
 // import { CreateKundeGuard } from './kunde/create-kunde/create-kunde.guard'
 // import { DetailsKundeComponent } from './kunde/details-kunde/details-kunde.component'

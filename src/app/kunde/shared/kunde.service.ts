@@ -9,10 +9,9 @@ import {
     HttpHeaders,
     HttpParams,
 } from '@angular/common/http'
-import { filter, map, find } from 'rxjs/operators'
+import { filter, map } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
-import { BasicAuthService } from 'src/app/auth/basic-auth.service'
 
 @Injectable({ providedIn: 'root' })
 export class KundeService {
@@ -86,7 +85,7 @@ export class KundeService {
                 ),
             )
             .subscribe(
-                kunden => this._kunde.kundenSubject.next(kunden),
+                kunden => this.kundenSubject.next(kunden),
                 errorFn,
             )
     }
