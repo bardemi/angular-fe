@@ -87,7 +87,6 @@ export class SuchergebnisComponent implements OnInit {
         this.kundeService.subscribeKunden(next)
     }
 
-
     private subscribeError() {
         const next = (err: string | number | undefined) => {
             // zuruecksetzen
