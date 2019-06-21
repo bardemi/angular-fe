@@ -6,14 +6,14 @@ import { BrowserModule } from '@angular/platform-browser'
 import { environment } from '../environments/environment'
 import { RouterModule } from '@angular/router'
 import { ROUTES } from './routes'
-import { CreateKundeModule } from './kunde/create-kunde/create-kunde.module'
-import { DetailsKundeModule } from './kunde/details-kunde/details-kunde.module'
+// import { CreateKundeModule } from './kunde/create-kunde/create-kunde.module'
+// import { DetailsKundeModule } from './kunde/details-kunde/details-kunde.module'
 import { FooterModule } from './layout/footer/footer.module'
 import { HeaderModule } from './layout/header/header.module'
 import { MainModule } from './layout/main/main.module'
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { SucheKundenModule } from './kunde/suche-kunden/suche-kunden.module'
-import { UpdateKundeModule } from './kunde/update-kunde/update-kunde.module'
+// import { UpdateKundeModule } from './kunde/update-kunde/update-kunde.module'
 
 /* eslint-disable object-curly-newline */
 
@@ -27,10 +27,10 @@ import { UpdateKundeModule } from './kunde/update-kunde/update-kunde.module'
             enabled: environment.production,
         }),
         RouterModule.forRoot(ROUTES),
-        CreateKundeModule,
-        DetailsKundeModule,
+        // CreateKundeModule,
+        // DetailsKundeModule,
         SucheKundenModule,
-        UpdateKundeModule,
+        // UpdateKundeModule,
         FooterModule,
         HeaderModule,
         MainModule,
