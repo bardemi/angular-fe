@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="card-header">
+        <span class="ml-1 font-weight-bold">Ein Neuer Kunde Kann Hier Angelegt Werden</span>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="form" role="form">
+            <div class="form-group row has-warning mb-4" *ngIf="showWarning">
+                <div class="col col-12 form-control-feedback">
+                    <span class="alert alert-warning">
+                        <fa-icon
+                        [icon]="faExclamationTriangle"
+                        [size]="faExclamationTriangleSize"
+                        ></fa-icon>
+                        <strong class="text-help">
+                            Wenn Sie diese Seite jetzt verlassen wird etwas schlimmes passieren
+                        </strong>
+                </div>
+            </div>
+
+            <hs-create-nachname [form]="form"></hs-create-nachname>
+            <hs-create-email [form]="form"></hs-create-email>
+            <hs-create-kategorie [form]="form"></hs-create-kategorie>
+            <hs-create-newsletter [form]="form"></hs-create-newsletter>
+            <hs-create-geburtsdatum [form]="form"></hs-create-geburtsdatum>
+            <hs-create-umsatz [form]="form"></hs-create-umsatz>
+            <hs-create-homepage [form]="form"></hs-create-homepage>
+            <hs-create-geschlecht [form]="form"></hs-create-geschlecht>
+            <hs-create-familienstand [form]="form"></hs-create-familienstand>
+            <hs-create-interessen [form]="form"></hs-create-interessen>
+            <hs-create-adresse [form]="form"></hs-create-adresse>
+
+            <div class="form-group row">
+                <div>
+                    <button
+                        class="btn btn-primary"
+                        (click)="onSave()"
+                        [disabled]="!form.valid"
+                    >
+                        <fa-icon [icon]="faCheck"></fa-icon>
+                        <span class="ml-1">Jetzt anlegen</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <small>* sind Pflichtfelder</small>
+    </div>
+</div>
