@@ -84,10 +84,7 @@ export class KundeService {
                     jsonArray.map(jsonObjekt => Kunde.fromServer(jsonObjekt)),
                 ),
             )
-            .subscribe(
-                kunden => this.kundenSubject.next(kunden),
-                errorFn,
-            )
+            .subscribe(kunden => this.kundenSubject.next(kunden), errorFn)
     }
 
     @log

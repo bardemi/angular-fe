@@ -4,7 +4,7 @@ import { BasicAuthService } from './basic-auth.service'
 import { Subject } from 'rxjs'
 import { log } from '../shared'
 
-export const ROLLE_ADMIN = 'admin'
+export const ROLLE_ADMIN = 'ROLE_ADMIN'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -12,8 +12,8 @@ export class AuthService {
     private rollenSubject = new Subject<Array<string>>()
 
     constructor(
-        private readonly basicAuthService: BasicAuthService,
         private readonly cookieService: CookieService,
+        private readonly basicAuthService: BasicAuthService,
     ) {
         console.log('AuthService.constructor()')
     }
@@ -25,8 +25,7 @@ export class AuthService {
      */
     @log
     async login(username: string | undefined, password: string | undefined) {
-        // let rollen: Array<string> = []
-        let rollen
+        let rollen: Array<string> = []
         try {
             rollen = await this.basicAuthService.login(username, password)
             console.log('AuthService.login()', rollen)

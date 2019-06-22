@@ -71,7 +71,7 @@ export class BasicAuthService {
             basicAuth,
             roles,
         )
-        return roles
+        return json
     }
 
     toString() {

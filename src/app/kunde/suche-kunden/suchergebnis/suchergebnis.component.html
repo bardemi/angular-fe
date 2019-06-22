@@ -16,9 +16,12 @@
                         <tr>
                             <th>Nr.</th>
                             <th>ID</th>
-                            <th>Titel</th>
-                            <th>Verlag</th>
-                            <th>Schlagw&ouml;rter</th>
+                            <th>Nachname</th>
+                            <th>Geschlecht</th>
+                            <th>Adresse</th>
+                            <th>E-Mail</th>
+                            <th>Familienstand</th>
+                            <th>Interessen</th>
                             <th>
                                 <span class="sr-only">
                                     Spalte f&uuml;r Details
@@ -41,25 +44,30 @@
                             <td>{{ k._id }}</td>
                             <td>{{ k.titel }}</td>
                             <td>
-                                <span [ngSwitch]="k.verlag">
-                                    <span *ngSwitchCase="'IWI_VERLAG'"
-                                        >Iwi Verlag</span
-                                    >
-                                    <span *ngSwitchCase="'HSKA_VERLAG'">
-                                        Hska Verlag
-                                    </span>
+                                <span [ngSwitch]="k.geschlecht">
+                                    <span *ngSwitchCase="'M'">M&auml;nnlich</span>
+                                    <span *ngSwitchCase="'W'">Weiblich</span>
+                                    <span *ngSwitchCase="'D'">Divers</span>
+                                    <span *ngSwitchDefault>unbekannt</span>
+                                </span>
+                            </td>
+                            <td>{{ k.adresse.plz}}   {{ k.adresse.ort}}</td>
+                            <td>{{ k.email }}</td>
+                            <td>
+                                <span [ngSwitch]="k.familienstand">
+                                    <span *ngSwitchCase="'L'">Ledig</span>
+                                    <span *ngSwitchCase="'G'">Geschiedenn</span>
+                                    <span *ngSwitchCase="'VH'">Verheiratet</span>
+                                    <span *ngSwitchCase="'VW'">Verwitwet</span>
                                     <span *ngSwitchDefault>unbekannt</span>
                                 </span>
                             </td>
                             <td>
-                                <span *ngFor="let sw of k.schlagwoerter">
-                                    <span [ngSwitch]="sw">
-                                        <span *ngSwitchCase="'JAVASCRIPT'">
-                                            JavaScript<br />
-                                        </span>
-                                        <span *ngSwitchCase="'TYPESCRIPT'">
-                                            TypeScript
-                                        </span>
+                                <span *ngFor="let interessen of k.interessen">
+                                    <span [ngSwitch]="interessen">
+                                        <span *ngSwitchCase="'S'">Sport<br></span>
+                                        <span *ngSwitchCase="'L'">Lesen<br></span>
+                                        <span *ngSwitchCase="'R'">Reisen<br></span>
                                     </span>
                                 </span>
                             </td>
@@ -72,7 +80,7 @@
                                 </a>
                             </td>
                             <td *ngIf="isAdmin">
-                                <a (click)="onRemove(b)" title="Entfernen">
+                                <a (click)="onRemove(k)" title="Entfernen">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </a>
                             </td>
