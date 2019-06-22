@@ -61,7 +61,9 @@ export class DetailsKundeComponent implements OnInit {
             console.log('DetailsKundeComponent.kunde=', this.kunde)
 
             const titel =
-                this.kunde === undefined ? 'Details' : `Details ${this.kunde._id}`
+                this.kunde === undefined
+                    ? 'Details'
+                    : `Details ${this.kunde._id}`
             this.titleService.setTitle(titel)
         }
         this.kundeService.subscribeKunde(next)

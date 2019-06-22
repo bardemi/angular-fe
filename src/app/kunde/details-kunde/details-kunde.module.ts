@@ -10,7 +10,6 @@ import { NgModule } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { WaitingModule } from '../../shared/waiting.module'
 
-
 @NgModule({
     declarations: [DetailsKundeComponent],
     exports: [DetailsKundeComponent],
