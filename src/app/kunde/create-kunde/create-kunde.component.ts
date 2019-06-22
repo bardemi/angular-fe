@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 import { SizeProp } from '@fortawesome/fontawesome-svg-core'
 import { Title } from '@angular/platform-browser'
-import { CompileShallowModuleMetadata } from '@angular/compiler';
+import { CompileShallowModuleMetadata } from '@angular/compiler'
 
 @Component({
     selector: 'kunde-create-kunde',
@@ -37,12 +37,12 @@ export class CreateKundeComponent implements OnInit {
     }
 
     @log
-    ngOnInit(){
+    ngOnInit() {
         this.titleService.setTitle('Neuer Kunde')
     }
 
     @log
-    onSave(){
+    onSave() {
         // Properties
         //    value     JSON-Objekt mit den IDs aus der FormGroup als
         //              Schluessel und den zugehoerigen Werten
@@ -50,8 +50,7 @@ export class CreateKundeComponent implements OnInit {
         //    valid     true/false
         //    dirty     true/false, falls der Wert geaendert wurde
 
-
-        if(!this.form.valid) {
+        if (!this.form.valid) {
             console.log('Validierungsfehler:', this.form)
             return false
         }

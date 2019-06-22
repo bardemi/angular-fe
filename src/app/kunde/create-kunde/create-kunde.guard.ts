@@ -11,7 +11,7 @@ import { log } from '../../shared'
 
 @Injectable({ providedIn: 'root' })
 export class CreateKundeGuard implements CanDeactivate<CreateKundeComponent> {
-    constructor(){
+    constructor() {
         console.log('CreateKundeGuard.constructor()')
     }
 
@@ -35,7 +35,7 @@ export class CreateKundeGuard implements CanDeactivate<CreateKundeComponent> {
         console.warn('Beim Verlassen der Seite gehen Daten verloren.')
         return false
     }
-    
+
     toString() {
         return 'CreateKundeGuard'
     }

@@ -14,8 +14,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
-import { CreateKundeComponent } from './create-kunde.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CreateKundeComponent } from './create-kunde.component'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
     declarations: [CreateKundeComponent],
