@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { HomeModule } from './home/home.module'
-import { authInterceptorProviders } from './auth/auth.interceptor'
+import { AUTH_PROVIDERS } from './auth/auth.module'
+// import { authInterceptorProviders } from './auth/auth.interceptor'
 import { BrowserModule } from '@angular/platform-browser'
 import { environment } from '../environments/environment'
 import { RouterModule } from '@angular/router'
@@ -34,9 +35,10 @@ import { SucheKundenModule } from './kunde/suche-kunden/suche-kunden.module'
         FooterModule,
         HeaderModule,
         MainModule,
+        AUTH_PROVIDERS,
     ],
 
-    providers: [authInterceptorProviders],
+    // providers: [authInterceptorProviders],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

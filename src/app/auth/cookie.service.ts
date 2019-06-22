@@ -1,14 +1,32 @@
+/*
+ * Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import { Injectable } from '@angular/core'
+
+// NICHT: Session-Cookies mit serverseitiger Session-ID.
 
 // Namen der Cookies: nur als Speichermechanismus (nicht zum Server übertragen):
 // Ablaufdatum oder Session-Cookie (Lebensdauer gebunden an Tab).
 // Kein XSS (Cross-Site Scripting) wie bei Local Storage
 // Evtl. CSRF (Cross-Site Request Forgery)
-// Alternativen: Local Storage oder Session-Cookies mit dem Token
+// Besser: Session-Cookies mit dem Token
 
 const AUTHORIZATION = 'authorization'
 const ROLES = 'roles'
-const DAY_IN_MILLIS = 24 * 60 * 60 * 1000 // eslint-disable-line no-magic-numbers
 
 @Injectable({ providedIn: 'root' })
 export class CookieService {
@@ -19,7 +37,7 @@ export class CookieService {
     saveAuthorization(
         authorization: string,
         roles: string,
-        expiration: number = DAY_IN_MILLIS,
+        expiration: number,
     ) {
         this.setCookie(AUTHORIZATION, authorization, expiration)
         this.setCookie(ROLES, roles, expiration)
@@ -53,7 +71,7 @@ export class CookieService {
         const encodedName = encodeURIComponent(name)
         const regexp = new RegExp(
             `(?:^${encodedName}|;\\s*${encodedName})=(.*?)(?:;|$)`,
-            'gu',
+            'g',
         )
         // alle Cookies durchsuchen
         const result = regexp.exec(document.cookie)
@@ -68,7 +86,6 @@ export class CookieService {
      * @param path Pfad des Cookies. Default: /.
      * @param domain Domain des Cookies. Default: aktuelle Domain.
      */
-    // eslint-disable-next-line max-params
     private setCookie(
         name: string,
         value: string,
@@ -95,9 +112,6 @@ export class CookieService {
 
         // Uebertragung nur mit HTTPS
         cookieStr += 'Secure;'
-
-        // Schutz vor XSS
-        cookieStr += 'SameSite=Strict'
 
         console.log(`setCookie(): ${cookieStr}`)
         // neues Cookie anlegen
