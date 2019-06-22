@@ -47,7 +47,7 @@
                                 <span [ngSwitch]="k.geschlecht">
                                     <span *ngSwitchCase="'M'">M&auml;nnlich</span>
                                     <span *ngSwitchCase="'W'">Weiblich</span>
-                                    <!--<span *ngSwitchCase="'D'">Divers</span>-->
+                                    <span *ngSwitchCase="'D'">Divers</span>
                                     <span *ngSwitchDefault>unbekannt</span>
                                 </span>
                             </td>
@@ -71,7 +71,7 @@
                                     </span>
                                 </span>
                             </td>
-                            <!--<td>
+                            <td>
                                 <a
                                     [routerLink]="['/details', k._id]"
                                     title="Details anzeigen"
@@ -79,7 +79,6 @@
                                     <fa-icon [icon]="faSearchPlus"></fa-icon>
                                 </a>
                             </td>
-                            -->
                             <td *ngIf="isAdmin">
                                 <a (click)="onRemove(k)" title="Entfernen">
                                     <fa-icon [icon]="faTrash"></fa-icon>
