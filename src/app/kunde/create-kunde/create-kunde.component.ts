@@ -49,20 +49,20 @@ export class CreateKundeComponent implements OnInit {
         //    valid     true/false
         //    dirty     true/false, falls der Wert geaendert wurde
 
-        if (!this.form.valid) {
-            console.log('Validierungsfehler:', this.form)
-            return false
-        }
+        // if (!this.form.valid) {
+        //     console.log('Validierungsfehler:', this.form)
+        //     return false
+        // }
 
         const neuerKunde = Kunde.fromForm(this.form.value)
         console.log('neuer Kunde:', neuerKunde)
 
         const successFn = (location: string | undefined) => {
             console.log(
-                `CreateKunde.onSave(): successFn(): location: ${location}`,
+                `CreateKunde.onSave1(): successFn(): location: ${location}`,
             )
             console.log(
-                `CreateKunde.onSave(): successFn(): navigate: ${HOME_PATH}`,
+                `CreateKunde.onSave2(): successFn(): navigate: ${HOME_PATH}`,
             )
             this.fertig = true
             this.showWarning = false
@@ -72,8 +72,8 @@ export class CreateKundeComponent implements OnInit {
             status: number,
             errors: { [s: string]: any } | undefined,
         ) => {
-            console.error(`CreateKunde.onSave(): errorFn(): status: ${status}`)
-            console.error('CreateKunde.onSave(): errorFn(): errors', errors)
+            console.error(`CreateKunde.onSave3(): errorFn(): status: ${status}`)
+            console.error('CreateKunde.onSave4(): errorFn(): errors', errors)
         }
         this.kundeService.save(neuerKunde, successFn, errorFn)
 
