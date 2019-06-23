@@ -14,6 +14,8 @@ export class DetailsGeburtsdatumComponent implements OnInit {
     readonly geburtsdatum!: string
 
     ngOnInit() {
-        console.log(`DetailsHomepageComponent.geburtsdatum=${this.geburtsdatum}`)
+        console.log(
+            `DetailsHomepageComponent.geburtsdatum=${this.geburtsdatum}`,
+        )
     }
 }

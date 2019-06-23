@@ -1,4 +1,4 @@
-import {DetailsGeburtsdatumComponent} from './details-geburtsdatum.component'
+import { DetailsGeburtsdatumComponent } from './details-geburtsdatum.component'
 import { NgModule } from '@angular/core'
 
 @NgModule({

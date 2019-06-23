@@ -1,4 +1,4 @@
-import {DetailsHomepageComponent} from './details-homepage.component'
+import { DetailsHomepageComponent } from './details-homepage.component'
 import { NgModule } from '@angular/core'
 
 @NgModule({
