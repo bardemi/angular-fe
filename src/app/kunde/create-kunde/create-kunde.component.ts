@@ -22,7 +22,7 @@ export class CreateKundeComponent implements OnInit {
 
     readonly faCheck = faCheck
     readonly faExclamationTriangle = faExclamationTriangle
-    readonly faExclemationTriangleSize: SizeProp = '2x'
+    readonly faExclamationTriangleSize: SizeProp = '2x'
 
     constructor(
         private kundeService: KundeService,
