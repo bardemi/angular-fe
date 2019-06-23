@@ -5,7 +5,7 @@ import 'moment/locale/de'
 
 // Alternativen zu Moment
 //  https://github.com/date-fns/date-fns
-//      https://github.com/date-fns/date-fns/issues/275#issuecomment-264934189
+//  https://github.com/date-fns/date-fns/issues/275#issuecomment-264934189
 //  https://github.com/moment/luxon
 //  https://github.com/iamkun/dayjs
 
@@ -189,7 +189,8 @@ export class Kunde {
             kundeServer.familienstand,
             kundeServer.interessen,
             kundeServer.adresse,
-            version        )
+            version,
+        )
         console.log('Kunde.fromServer(): kunde=', kunde)
         return kunde
     }
