@@ -1,4 +1,4 @@
-// tslint:disable:max-file-line-count
+/* eslint-disable max-lines */
 
 import * as moment from 'moment'
 import 'moment/locale/de'
