@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
@@ -9,23 +9,29 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 })
 export class CreateAdresseComponent implements OnInit {
     @Input()
-    readonly form!: FormGroup
+    form!: FormGroup
 
-    // Keine Vorbelegung bzw. der leere String, da es Placeholder gibt
-    // Varianten fuer Validierung:
-    //    serverseitig mittels Request/Response
-    //    clientseitig bei den Ereignissen keyup, change, blur, ...
-    // Ein Endbenutzer bewirkt staendig einen neuen Fehlerstatus
-    readonly plz: FormControl = new FormControl('76185')
-    readonly ort: FormControl = new FormControl('Karlsruhe')
-    // readonly emailGroup = new FormGroup({ adresse: this.adresse })
+    readonly plz = new FormControl(undefined, [
+        Validators.required,
+        Validators.pattern(/^\d{5}$/),
+    ])
+
+    readonly ort = new FormControl(undefined, [
+        Validators.required,
+        Validators.minLength(2),
+    ])
 
     readonly faExclamationCircle = faExclamationCircle
 
     ngOnInit() {
         console.log('CreateAdresseComponent.ngOnInit')
         // siehe formControlName innerhalb @Component({templateUrl: ...})
-        this.form.addControl('ort', this.ort)
-        this.form.addControl('plz', this.plz)
+        // this.form.addControl('plz', this.plz)
+        // this.form.addControl('ort', this.ort)
+
+        this.form = new FormGroup({
+            ort: this.ort,
+            plz: this.plz,
+        })
     }
 }
