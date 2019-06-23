@@ -14,7 +14,10 @@ export class CreateUmsatzComponent implements OnInit {
     @Input()
     readonly form!: FormGroup
 
-    readonly umsatz: FormControl = new FormControl(undefined,Validators.required)
+    readonly umsatz: FormControl = new FormControl(
+        undefined,
+        Validators.required,
+    )
     readonly waehrung: FormControl = new FormControl('EUR')
     readonly betrag: FormControl = new FormControl(123)
 

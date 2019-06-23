@@ -27,28 +27,39 @@ export enum Familienstand {
     VERWITWET = 'VW',
 }
 
-export interface Adresse {
+export class Adresse {
     plz: string
     ort: string
+    constructor(plz: string, ort: string) {
+        this.plz = plz
+        this.ort = ort
+    }
 }
 
-export interface Umsatz {
+export class Umsatz {
     betrag: number
     waehrung: string
+    constructor(betrag: number, waehrung: string) {
+        this.betrag = betrag
+        this.waehrung = waehrung
+    }
 }
 
-export interface User {
+export class User {
     username: string
     password: string
+    constructor(username: string, password: string) {
+        this.username = username
+        this.password = password
+    }
 }
 
-type UUID = string
 /**
  * Gemeinsame Datenfelder unabh&auml;ngig, ob die Buchdaten von einem Server
  * (z.B. RESTful Web Service) oder von einem Formular kommen.
  */
 export interface KundeShared {
-    _id?: UUID
+    _id?: string
     nachname?: string
     email?: string
     kategorie?: number
@@ -60,10 +71,10 @@ export interface KundeShared {
     familienstand?: Familienstand
     interessen?: Array<string>
     adresse?: Adresse
-    // username?: string
+    username?: string
     // _links?: SelfLink
     // links?: any
-    // user: User
+    user?: User
     version?: number
 }
 
@@ -93,13 +104,13 @@ export interface KundeServer extends KundeShared {
  * </ul>
  */
 export interface KundeForm extends KundeShared {
-    betrag: number
-    waehrung: string
-    plz: string
-    ort: string
-    kategorie: number
-    username: string
-    password: string
+    // betrag: number
+    // waehrung: string
+    // plz: string
+    // ort: string
+    // kategorie: number
+    // username: string
+    // password: string
     S?: boolean
     L?: boolean
     R?: boolean
@@ -115,9 +126,9 @@ export class Kunde {
     kategorieArray: Array<boolean> = []
 
     // wird aufgerufen von fromServer() oder von fromForm()
-    private constructor(
-        // tslint:disable-next-line:variable-name
-        public _id: UUID | undefined,
+    constructor(
+       // eslint-disable-next-line max-params
+        public _id: string | undefined,
         public nachname: string | undefined,
         public email: string | undefined,
         public kategorie: number | undefined,
@@ -129,6 +140,7 @@ export class Kunde {
         public familienstand: Familienstand | undefined,
         public interessen: Array<string> | undefined,
         public adresse: Adresse | undefined,
+        public User: User | undefined,
         public version: number | undefined,
     ) {
         this._id = _id || undefined
@@ -170,6 +182,7 @@ export class Kunde {
             id = selfLink.substring(lastSlash + 1)
         }
 
+        let user = new User('test', 'p')
         let version: number | undefined
         if (etag !== undefined) {
             // Anfuehrungszeichen am Anfang und am Ende entfernen
@@ -189,6 +202,7 @@ export class Kunde {
             kundeServer.familienstand,
             kundeServer.interessen,
             kundeServer.adresse,
+            user,
             version,
         )
         console.log('Kunde.fromServer(): kunde=', kunde)
@@ -212,15 +226,24 @@ export class Kunde {
             interessen.push('R')
         }
 
-        const umsatz: Umsatz = {
-            betrag: kundeForm.betrag,
-            waehrung: kundeForm.waehrung,
-        }
+        // const umsatz: Umsatz = {
+        //     betrag: kundeForm.betrag,
+        //     waehrung: kundeForm.waehrung,
+        // }
 
-        const adresse: Adresse = {
-            plz: kundeForm.plz,
-            ort: kundeForm.ort,
-        }
+        // const adresse: Adresse = {
+        //     plz: kundeForm.plz,
+        //     ort: kundeForm.ort,
+        // }
+
+        let eineAdresse = new Adresse('76131', 'Karlsruhe')
+        let einUmsatz = new Umsatz(22222, 'EUR')
+        let eineHomepage = new URL('https://www.test.de')
+
+        // let gebursdatum = new Date('1996-03-06')
+
+        let user = new User('test', 'p')
+        let vers = 1
 
         const kunde = new Kunde(
             kundeForm._id,
@@ -229,12 +252,13 @@ export class Kunde {
             kundeForm.kategorie,
             kundeForm.newsletter,
             kundeForm.geburtsdatum,
-            umsatz,
-            kundeForm.homepage,
+            einUmsatz,
+            eineHomepage,
             kundeForm.geschlecht,
             kundeForm.familienstand,
             interessen,
-            adresse,
+            eineAdresse,
+            user,
             kundeForm.version,
         )
         console.log('Kunde.fromForm(): kunde=', kunde)
@@ -367,6 +391,8 @@ export class Kunde {
             familienstand: this.familienstand,
             interessen: this.interessen,
             adresse: this.adresse,
+            user: this.User,
+            version: this.version,
         }
     }
 

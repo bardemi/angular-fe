@@ -9,7 +9,7 @@ export class CreateGeschlechtComponent implements OnInit {
     @Input()
     readonly form!: FormGroup
 
-    readonly geschlecht = new FormControl('WEIBLICH')
+    readonly geschlecht = new FormControl('W')
 
     ngOnInit() {
         console.log('CreateGeschlechtComponent.ngOnInit')

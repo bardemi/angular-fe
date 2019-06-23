@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
+let eineHomepage = new URL('https://www.test.de')
+
 /**
  * Komponente mit dem Tag &lt;hs-create-homepage&gt;, um das Erfassungsformular
  * f&uuml;r ein neues Buch zu realisieren.
@@ -16,7 +18,7 @@ export class CreateHomepageComponent implements OnInit {
     @Input()
     readonly form!: FormGroup
 
-    readonly homepage = new FormControl('www.asdf.de')
+    readonly homepage = new FormControl(eineHomepage)
     // Keine Vorbelegung bzw. der leere String, da es Placeholder gibt
     // Varianten fuer Validierung:
     //    serverseitig mittels Request/Response
