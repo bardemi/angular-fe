@@ -1,47 +1,59 @@
-import * as moment from 'moment'
-import { BASE_URI, KUNDEN_PATH, log } from '../../shared'
-import { Kunde, KundeForm, KundeServer } from './kunde'
-// Bereitgestellt durch HttpClientModule
-// HttpClientModule enthaelt nur Services, keine Komponenten
 import {
     HttpClient,
     HttpErrorResponse,
     HttpHeaders,
     HttpParams,
 } from '@angular/common/http'
-import { filter, map } from 'rxjs/operators'
 import { Injectable } from '@angular/core'
+// import * as moment from 'moment'
 import { Subject } from 'rxjs'
+import { filter, map } from 'rxjs/operators'
+// import { DiagrammService } from '../../shared/diagramm.service'
+import { BASE_URI, KUNDEN_PATH, log } from '../../shared'
+import { Kunde, KundeForm, KundeServer } from './kunde'
 
+/**
+ * Die Service-Klasse zu Kunde wird zum "Root Application Injector"
+ * hinzugefuegt und ist in allen Klassen der Webanwendung verfuegbar.
+ */
 @Injectable({ providedIn: 'root' })
 export class KundeService {
     private baseUriKunden: string
+
+    // Observables = Event-Streaming mit Promises
     private kundenSubject = new Subject<Array<Kunde>>()
     private kundeSubject = new Subject<Kunde>()
     private errorSubject = new Subject<string | number>()
 
-    /* eslint-disable no-underscore-dangle */
+    // tslint:disable-next-line:variable-name
     private _kunde!: Kunde
-
     private headers = new HttpHeaders({
         'Content-Type': 'application/json',
         Accept: 'text/plain',
     })
-
-    constructor(private readonly httpClient: HttpClient) {
+    /* @param diagrammService injizierter DiagrammService
+     * @param httpClient injizierter Service HttpClient (von Angular)
+     * @return void
+     */
+    constructor(
+        // private readonly diagrammService: DiagrammService,
+        private readonly httpClient: HttpClient,
+    ) {
         this.baseUriKunden = `${BASE_URI}/${KUNDEN_PATH}`
         console.log(
             `KundeService.constructor(): baseUriKunde=${this.baseUriKunden}`,
         )
     }
 
-    set kunde(kunde: Kunde) {
-        console.log('KundeService.set kunde()', kunde)
-        this._kunde = kunde
-    }
-
     @log
     subscribeKunden(next: (kunden: Array<Kunde>) => void) {
+        // Observable.subscribe() aus RxJS liefert ein Subscription Objekt,
+        // mit dem man den Request auch abbrechen ("cancel") kann
+        // tslint:disable:max-line-length
+        // https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md
+        // http://stackoverflow.com/questions/34533197/what-is-the-difference-between-rx-observable-subscribe-and-foreach
+        // https://xgrommx.github.io/rx-book/content/observable/observable_instance_methods/subscribe.html
+        // tslint:enable:max-line-length
         return this.kundenSubject.subscribe(next)
     }
 
@@ -55,6 +67,10 @@ export class KundeService {
         return this.errorSubject.subscribe(next)
     }
 
+    /**
+     * Kunden suchen
+     * @param suchkriterien Die Suchkriterien
+     */
     @log
     find(suchkriterien: KundeForm) {
         const params = this.suchkriterienToHttpParams(suchkriterien)
@@ -70,37 +86,45 @@ export class KundeService {
 
             const { status } = err
             console.log(
-                `KundeService.find(): errorFn(): status=${status}, ` +
+                `BuchService.find(): errorFn(): status=${status}, ` +
                     'Response-Body=',
                 err.error,
             )
             this.errorSubject.next(status)
         }
 
+        // Observable.subscribe() aus RxJS liefert ein Subscription Objekt,
+        // mit dem man den Request abbrechen ("cancel") kann
+        // https://angular.io/guide/http
+        // https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/subscribe.md
+        // http://stackoverflow.com/questions/34533197/what-is-the-difference-between-rx-observable-subscribe-and-foreach
+        // https://xgrommx.github.io/rx-book/content/observable/observable_instance_methods/subscribe.html
         this.httpClient
             .get<Array<KundeServer>>(uri, { params })
             .pipe(
+                // http://reactivex.io/documentation/operators.html
                 map(jsonArray =>
                     jsonArray.map(jsonObjekt => Kunde.fromServer(jsonObjekt)),
                 ),
             )
             .subscribe(kunden => this.kundenSubject.next(kunden), errorFn)
+
+        // Same-Origin-Policy verhindert Ajax-Datenabfragen an einen Server in
+        // einer anderen Domain. JSONP (= JSON mit Padding) ermoeglicht die
+        // Uebertragung von JSON-Daten ueber Domaingrenzen.
+        // In Angular gibt es dafuer den Service Jsonp.
     }
 
     @log
     findById(id: string | undefined) {
-        // Gibt es einen gepufferten Kunden mit der gesuchten ID und Versionsnr.?
-        if (
-            this._kunde !== undefined &&
-            this._kunde._id === id &&
-            this._kunde.version !== undefined
-        ) {
-            console.log('KundeService.findById(): Kunde gepuffert')
+        // Gibt es ein gepuffertes Buch mit der gesuchten ID und Versionsnr.?
+        if (this._kunde !== undefined && this._kunde._id === id) {
+            console.log('BuchService.findById(): Buch gepuffert')
             this.kundeSubject.next(this._kunde)
             return
         }
         if (id === undefined) {
-            console.log('KundeService.findById(): Keine Id')
+            console.log('BuchService.findById(): Keine Id')
             return
         }
 
@@ -110,7 +134,7 @@ export class KundeService {
         const errorFn = (err: HttpErrorResponse) => {
             if (err.error instanceof ProgressEvent) {
                 console.error(
-                    'KundeService.findById(): errorFn(): Client- oder Netzwerkfehler',
+                    'BuchService.findById(): errorFn(): Client- oder Netzwerkfehler',
                     err.error,
                 )
                 this.errorSubject.next(-1)
@@ -119,44 +143,54 @@ export class KundeService {
 
             const { status } = err
             console.log(
-                `KundeService.findById(): errorFn(): status=${status}` +
+                `BuchService.findById(): errorFn(): status=${status}` +
                     `Response-Body=${err.error}`,
             )
             this.errorSubject.next(status)
         }
 
-        console.log('KundeService.findById(): GET-Request')
+        console.log('BuchService.findById(): GET-Request')
 
-        let body: KundeServer | null = null
-        let etag: string | null = null
+        let body: KundeServer | null
         this.httpClient
             .get<KundeServer>(uri, { observe: 'response' })
             .pipe(
                 filter(response => {
                     console.debug(
-                        'KundeService.findById(): filter(): response=',
+                        'BuchService.findById(): filter(): response=',
                         response,
                     )
-                    body = response.body // eslint-disable-line prefer-destructuring
+                    body = response.body
                     return body !== null
                 }),
-                filter(response => {
-                    etag = response.headers.get('ETag')
-                    return etag !== null
-                }),
-                /* eslint-disable @typescript-eslint/no-unused-vars */
                 map(_ => {
-                    this._kunde = Kunde.fromServer(
-                        body as KundeServer,
-                        etag as string,
-                    )
+                    this._kunde = Kunde.fromServer(body as KundeServer)
                     return this._kunde
                 }),
-                /* eslint-enable @typescript-eslint/no-unused-vars */
             )
-            .subscribe(kunde => this.kundeSubject.next(kunde), errorFn)
+            .subscribe(buch => this.kundeSubject.next(buch), errorFn)
     }
-    /* eslint-enable max-lines-per-function */
+
+    // @log
+    // findByMail(suchkriterien: KundeForm) {
+    //     suchkriterien.email = suchkriterien.suchwort
+    //     this.find(suchkriterien)
+    //     return this.kundenSubject
+    // }
+
+    // @log
+    // findByNachname(suchkriterien: KundeForm) {
+    //     suchkriterien.email = ''
+    //     suchkriterien.nachname = suchkriterien.suchwort
+    //     this.find(suchkriterien)
+    //     return this.kundenSubject
+    // }
+    /**
+     * Einen neuen Kunden anlegen
+     * @param neuerKunde Das JSON-Objekt mit dem neuen Kunden
+     * @param succesFn Die Callback-Function fuer den Erfolgsfall
+     * @param errorFn Die Callback-Function fuer den Fehlerfall
+     */
 
     @log
     save(
@@ -164,19 +198,20 @@ export class KundeService {
         successFn: (location: string | undefined) => void,
         errorFn: (status: number, errors: { [s: string]: any }) => void,
     ) {
-        // Alternative:date-fns
-        neuerKunde.datum = moment(new Date())
+        // neuerKunde.geburtsdatum = moment(new Date())
 
         const errorFnPost = (err: HttpErrorResponse) => {
             if (err.error instanceof Error) {
                 console.error(
-                    'KundeService.save(): errorFnPost(): Client- oder Netzwerkfehler',
+                    'KundeService.save() errorFnPost(): Client- oder Netzwerkfehler',
                     err.error.message,
                 )
-            } else if (errorFn === undefined) {
-                console.error('errorFnPost', err)
             } else {
-                errorFn(err.status, err.error)
+                if (errorFn !== undefined) {
+                    errorFn(err.status, err.error)
+                } else {
+                    console.error('errorFnPost', err)
+                }
             }
         }
 
@@ -206,67 +241,43 @@ export class KundeService {
     }
 
     @log
-    update(
-        kunde: Kunde,
-        successFn: () => void,
-        errorFn: (
-            status: number,
-            errors: { [s: string]: any } | undefined,
-        ) => void,
-    ) {
-        const { version } = kunde
-        if (version === undefined) {
-            console.error(`Keine Versionsnummer fuer das Kunde ${kunde._id}`)
-            return
-        }
-        const errorFnPut = (err: HttpErrorResponse) => {
-            if (err.error instanceof Error) {
-                console.error(
-                    'Client-seitiger oder Netzwerkfehler',
-                    err.error.message,
-                )
-            } else if (errorFn === undefined) {
-                console.error('errorFnPut', err)
-            } else {
-                errorFn(err.status, err.error)
-            }
-        }
-
-        const uri = `${this.baseUriKunden}/${kunde._id}`
-        this.headers = this.headers.append('If-Match', version.toString())
-        console.log('headers=', this.headers)
-        this.httpClient
-            .put(uri, kunde, { headers: this.headers })
-            .subscribe(successFn, errorFnPut)
-    }
-
-    @log
     remove(
         kunde: Kunde,
-        successFn: (() => void) | undefined,
+        successFn: () => void | undefined,
         errorFn: (status: number) => void,
     ) {
         const uri = `${this.baseUriKunden}/${kunde._id}`
 
-        const errorFnDelete = (err: HttpErrorResponse) => {
+        const errorFnDelete: (err: HttpErrorResponse) => void = err => {
             if (err.error instanceof Error) {
                 console.error(
                     'Client-seitiger oder Netzwerkfehler',
                     err.error.message,
                 )
-            } else if (errorFn === undefined) {
-                console.error('errorFnPut', err)
             } else {
-                errorFn(err.status)
+                if (errorFn !== undefined) {
+                    errorFn(err.status)
+                } else {
+                    console.error('errorPut', err)
+                }
             }
         }
 
         this.httpClient.delete(uri).subscribe(successFn, errorFnDelete)
     }
 
+    /**
+     * Suchkriterien in Request-Parameter konvertieren.
+     * @param suchkriterien Suchkriterien fuer den GET-Request.
+     * @return Parameter fuer den GET-Request
+     */
     @log
-    private suchkriterienToHttpParams(suchkriterien): HttpParams {
+    private suchkriterienToHttpParams(suchkriterien: KundeForm): HttpParams {
         let httpParams = new HttpParams()
+
+        if (suchkriterien.email !== undefined && suchkriterien.email !== '') {
+            httpParams = httpParams.set('email', suchkriterien.email)
+        }
 
         if (
             suchkriterien.nachname !== undefined &&
@@ -274,18 +285,18 @@ export class KundeService {
         ) {
             httpParams = httpParams.set('nachname', suchkriterien.nachname)
         }
-        if (suchkriterien.email !== undefined && suchkriterien.email !== '') {
-            httpParams = httpParams.set('email', suchkriterien.email)
+
+        if (suchkriterien.geschlecht !== undefined) {
+            httpParams = httpParams.set('geschlecht', suchkriterien.geschlecht)
         }
-        if (suchkriterien.umsatz !== undefined && suchkriterien.umsatz !== '') {
-            httpParams = httpParams.set('umsatz', suchkriterien.umsatz)
+
+        if (suchkriterien.familienstand !== undefined) {
+            httpParams = httpParams.set(
+                'familienstand',
+                suchkriterien.familienstand,
+            )
         }
-        if (
-            suchkriterien.homepage !== undefined &&
-            suchkriterien.homepage !== ''
-        ) {
-            httpParams = httpParams.set('homepage', suchkriterien.homepage)
-        }
+
         return httpParams
     }
 }

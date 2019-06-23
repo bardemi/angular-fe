@@ -8,7 +8,7 @@ import { environment } from '../environments/environment'
 import { RouterModule } from '@angular/router'
 import { ROUTES } from './routes'
 // import { CreateKundeModule } from './kunde/create-kunde/create-kunde.module'
-// import { DetailsKundeModule } from './kunde/details-kunde/details-kunde.module'
+import { DetailsKundeModule } from './kunde/details-kunde/details-kunde.module'
 import { FooterModule } from './layout/footer/footer.module'
 import { HeaderModule } from './layout/header/header.module'
 import { MainModule } from './layout/main/main.module'
@@ -29,7 +29,7 @@ import { SucheKundenModule } from './kunde/suche-kunden/suche-kunden.module'
         }),
         RouterModule.forRoot(ROUTES),
         // CreateKundeModule,
-        // DetailsKundeModule,
+        DetailsKundeModule,
         SucheKundenModule,
         // UpdateKundeModule,
         FooterModule,

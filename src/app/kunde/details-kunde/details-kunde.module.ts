@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { DetailsBearbeitenModule } from './details-bearbeiten.module'
+// import { DetailsBearbeitenModule } from './details-bearbeiten.module'
 import { DetailsBreadcrumbsModule } from './details-breadcrumbs.module'
 import { DetailsKundeComponent } from './details-kunde.component'
 // import { DetailsSchlagwoerterModule } from './schlagwoerter/details-schlagwoerter.module'
@@ -19,7 +19,7 @@ import { WaitingModule } from '../../shared/waiting.module'
         HttpClientModule,
         ErrorMessageModule,
         WaitingModule,
-        DetailsBearbeitenModule,
+        // DetailsBearbeitenModule,
         DetailsBreadcrumbsModule,
         // DetailsSchlagwoerterModule,
         // DetailsStammdatenModule,

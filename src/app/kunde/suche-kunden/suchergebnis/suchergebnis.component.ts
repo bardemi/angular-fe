@@ -58,16 +58,16 @@ export class SuchergebnisComponent implements OnInit {
         this.router.navigate([DETAILS_KUNDE_PATH, kunde._id])
     }
 
-    @log
-    onRemove(kunde: Kunde) {
-        const successFn: (() => void) | undefined = undefined
-        const errorFn = (status: number) =>
-            console.error(`Fehler beim Loeschen: status=${status}`)
-        this.kundeService.remove(kunde, successFn, errorFn)
-        if (this.kunden.length) {
-            this.kunden = this.kunden.filter((k: Kunde) => k._id !== kunde._id)
-        }
-    }
+    // @log
+    // onRemove(kunde: Kunde) {
+    //     const successFn: (() => void) | undefined = undefined
+    //     const errorFn = (status: number) =>
+    //         console.error(`Fehler beim Loeschen: status=${status}`)
+    //     this.kundeService.remove(kunde, successFn, errorFn)
+    //     if (this.kunden.length) {
+    //         this.kunden = this.kunden.filter((k: Kunde) => k._id !== kunde._id)
+    //     }
+    // }
 
     toString() {
         return 'SuchergebnisComponent'
@@ -95,7 +95,7 @@ export class SuchergebnisComponent implements OnInit {
 
             console.log('SuchErgebnisComponent.subscribeError: err=', err)
             if (err === undefined) {
-                this.errorMsg = 'Ein Fehler ist aufgetreten.'
+                this.errorMsg = 'Ein Fehler ist aufgetreten. Error undefined'
                 return
             }
 
@@ -108,8 +108,29 @@ export class SuchergebnisComponent implements OnInit {
                 case HttpStatus.NOT_FOUND:
                     this.errorMsg = 'Keine Kunden gefunden.'
                     break
+                case HttpStatus.BAD_REQUEST:
+                    this.errorMsg = 'Kack Request.'
+                    break
+                case HttpStatus.UNAUTHORIZED:
+                    this.errorMsg = 'Keine Kunden gefunden.'
+                    break
+                case HttpStatus.FORBIDDEN:
+                    this.errorMsg = 'Keine Kunden gefunden.'
+                    break
+                case HttpStatus.CLIENT_CLOSED_REQUEST:
+                    this.errorMsg = 'Keine Kunden gefunden.'
+                    break
+                case HttpStatus.METHOD_NOT_ALLOWED:
+                    this.errorMsg = 'Keine Kunden gefunden.'
+                    break
+                case HttpStatus.REQUEST_TIMEOUT:
+                    this.errorMsg = 'Keine Kunden gefunden.'
+                    break
+                case HttpStatus.PROXY_AUTHENTIFICATION_REQUIRED:
+                    this.errorMsg = 'Keine Kunden gefunden.'
+                    break
                 default:
-                    this.errorMsg = 'Ein Fehler ist aufgetreten.'
+                    this.errorMsg = 'Ein Fehler ist aufgetreten 404.'
                     break
             }
             console.log(`SuchErgebnisComponent.errorMsg: ${this.errorMsg}`)

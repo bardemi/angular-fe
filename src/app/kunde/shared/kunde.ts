@@ -1,7 +1,13 @@
-/* eslint-disable max-lines */
+// tslint:disable:max-file-line-count
 
 import * as moment from 'moment'
 import 'moment/locale/de'
+
+// Alternativen zu Moment
+//  https://github.com/date-fns/date-fns
+//      https://github.com/date-fns/date-fns/issues/275#issuecomment-264934189
+//  https://github.com/moment/luxon
+//  https://github.com/iamkun/dayjs
 
 moment.locale('de')
 
@@ -38,7 +44,7 @@ export interface User {
 
 type UUID = string
 /**
- * Gemeinsame Datenfelder unabh&auml;ngig, ob die Kundendaten von einem Server
+ * Gemeinsame Datenfelder unabh&auml;ngig, ob die Buchdaten von einem Server
  * (z.B. RESTful Web Service) oder von einem Formular kommen.
  */
 export interface KundeShared {
@@ -52,20 +58,18 @@ export interface KundeShared {
     homepage?: URL
     geschlecht?: Geschlecht
     familienstand?: Familienstand
+    interessen?: Array<string>
     adresse?: Adresse
-    username?: string
-    _links?: SelfLink
-    links?: any
-    user: User
+    // username?: string
+    // _links?: SelfLink
+    // links?: any
+    // user: User
     version?: number
 }
 
-interface Href {
+interface Link {
+    rel: string
     href: string
-}
-
-interface SelfLink {
-    self: Href
 }
 /**
  * Daten vom und zum REST-Server:
@@ -78,8 +82,7 @@ interface SelfLink {
  */
 export interface KundeServer extends KundeShared {
     interessen?: Array<string>
-    links?: any
-    _links?: SelfLink
+    links?: Array<Link>
 }
 
 /**
@@ -111,8 +114,6 @@ export class Kunde {
     waehrung: any
     kategorieArray: Array<boolean> = []
 
-    datum: moment.Moment | undefined
-
     // wird aufgerufen von fromServer() oder von fromForm()
     private constructor(
         // tslint:disable-next-line:variable-name
@@ -128,9 +129,6 @@ export class Kunde {
         public familienstand: Familienstand | undefined,
         public interessen: Array<string> | undefined,
         public adresse: Adresse | undefined,
-        public username: string | undefined,
-        public links: any | undefined,
-        public user: User,
         public version: number | undefined,
     ) {
         this._id = _id || undefined
@@ -151,9 +149,6 @@ export class Kunde {
         this.interessen =
             interessen === undefined ? [] : (this.interessen = interessen)
         this.adresse = adresse || undefined
-        this.username = username || undefined
-        this.links = links || undefined
-        this.user = user || undefined
         this.version = version || undefined
     }
 
@@ -165,14 +160,11 @@ export class Kunde {
      */
     static fromServer(kundeServer: KundeServer, etag?: string) {
         let selfLink: string | undefined
-        if (kundeServer.links !== undefined) {
-            // innerhalb von einem JSON-Array
-            selfLink = kundeServer.links[1].href
-        } else if (kundeServer._links !== undefined) {
-            // ein einzelnes JSON-Objekt
-            selfLink = kundeServer._links.self.href
+        const selfLinkJson = kundeServer.links && kundeServer.links[0]
+        if (selfLinkJson !== undefined && selfLinkJson.rel === 'self') {
+            selfLink = selfLinkJson.href
         }
-        let id: UUID | undefined
+        let id: string | undefined
         if (selfLink !== undefined) {
             const lastSlash = selfLink.lastIndexOf('/')
             id = selfLink.substring(lastSlash + 1)
@@ -184,7 +176,6 @@ export class Kunde {
             const versionStr = etag.substring(1, etag.length - 1)
             version = Number.parseInt(versionStr, 10)
         }
-
         const kunde = new Kunde(
             id,
             kundeServer.nachname,
@@ -198,11 +189,7 @@ export class Kunde {
             kundeServer.familienstand,
             kundeServer.interessen,
             kundeServer.adresse,
-            kundeServer.username,
-            kundeServer.links,
-            kundeServer.user,
-            version,
-        )
+            version        )
         console.log('Kunde.fromServer(): kunde=', kunde)
         return kunde
     }
@@ -229,11 +216,6 @@ export class Kunde {
             waehrung: kundeForm.waehrung,
         }
 
-        const user: User = {
-            username: kundeForm.username,
-            password: kundeForm.password,
-        }
-
         const adresse: Adresse = {
             plz: kundeForm.plz,
             ort: kundeForm.ort,
@@ -252,9 +234,6 @@ export class Kunde {
             kundeForm.familienstand,
             interessen,
             adresse,
-            kundeForm.username,
-            kundeForm.links,
-            user,
             kundeForm.version,
         )
         console.log('Kunde.fromForm(): kunde=', kunde)
@@ -387,9 +366,7 @@ export class Kunde {
             familienstand: this.familienstand,
             interessen: this.interessen,
             adresse: this.adresse,
-            username: this.username,
             links: this.links,
-            user: this.user,
         }
     }
 

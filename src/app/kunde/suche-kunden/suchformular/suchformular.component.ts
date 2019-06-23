@@ -6,7 +6,7 @@ import { Subject } from 'rxjs'
 // import { SucheArtComponent } from './suche-art.component'
 // import { SucheSchlagwoerterComponent } from './suche-schlagwoerter.component'
 import { SucheNachnameComponent } from './suche-nachname.component'
-// import { SucheVerlagComponent } from './suche-verlag.component'
+import { SucheGeschlechtComponent } from './suche-geschlecht.component'
 
 @Component({
     selector: 'kunde-suchformular',
@@ -23,8 +23,8 @@ export class SuchformularComponent {
     @ViewChild(SucheNachnameComponent)
     private readonly sucheNachnameComponent!: SucheNachnameComponent
 
-    // @ViewChild(SucheVerlagComponent)
-    // private readonly sucheVerlagComponent!: SucheVerlagComponent
+    @ViewChild(SucheGeschlechtComponent)
+    private readonly sucheGeschlechtComponent!: SucheGeschlechtComponent
 
     // @ViewChild(SucheArtComponent)
     // private readonly sucheArtComponent!: SucheArtComponent
@@ -41,13 +41,13 @@ export class SuchformularComponent {
     @log
     onFind() {
         const { nachname } = this.sucheNachnameComponent
-        // const { verlag } = this.sucheVerlagComponent
+        const { geschlecht } = this.sucheGeschlechtComponent
         // const { art } = this.sucheArtComponent
         // const { javascript } = this.sucheSchlagwoerterComponent
         // const { typescript } = this.sucheSchlagwoerterComponent
         const suchkriterien: any = {
             nachname,
-            // verlag,
+            geschlecht,
             // art,
             // javascript,
             // typescript,

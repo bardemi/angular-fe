@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core'
 // import { SucheArtModule } from './suche-art.module'
 // import { SucheSchlagwoerterModule } from './suche-schlagwoerter.module'
 import { SucheNachnameModule } from './suche-nachname.module'
-//import { SucheVerlagModule } from './suche-verlag.module'
+import { SucheGeschlechtModule } from './suche-geschlecht.module'
 import { SuchformularComponent } from './suchformular.component'
 
 @NgModule({
@@ -21,7 +21,7 @@ import { SuchformularComponent } from './suchformular.component'
         // SucheArtModule,
         // SucheSchlagwoerterModule,
         SucheNachnameModule,
-        // SucheVerlagModule,
+        SucheGeschlechtModule,
     ],
 })
 export class SuchformularModule {}

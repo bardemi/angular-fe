@@ -6,6 +6,7 @@
     <div class="card-body">
         <form (submit)="onFind()" role="form">
             <kunde-suche-nachname></kunde-suche-nachname>
+            <kunde-suche-geschlecht></kunde-suche-geschlecht>
             <!--
             <kunde-suche-verlag></kunde-suche-verlag>
             <kunde-suche-art></kunde-suche-art>
@@ -22,6 +23,7 @@
 
             <div class="form-group row">
                 <div class="col offset-2">
+                    <!-- default: type="submit" -->
                     <button class="btn btn-primary">
                         <fa-icon [icon]="faSearch"></fa-icon>
                         <span class="ml-1">Suchen</span>
