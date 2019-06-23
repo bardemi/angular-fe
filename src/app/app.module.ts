@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { environment } from '../environments/environment'
 import { RouterModule } from '@angular/router'
 import { ROUTES } from './routes'
-// import { CreateKundeModule } from './kunde/create-kunde/create-kunde.module'
+import { CreateKundeModule } from './kunde/create-kunde/create-kunde.module'
 import { DetailsKundeModule } from './kunde/details-kunde/details-kunde.module'
 import { FooterModule } from './layout/footer/footer.module'
 import { HeaderModule } from './layout/header/header.module'
@@ -28,7 +28,7 @@ import { SucheKundenModule } from './kunde/suche-kunden/suche-kunden.module'
             enabled: environment.production,
         }),
         RouterModule.forRoot(ROUTES),
-        // CreateKundeModule,
+        CreateKundeModule,
         DetailsKundeModule,
         SucheKundenModule,
         // UpdateKundeModule,

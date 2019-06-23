@@ -1,8 +1,7 @@
 import { HOME_PATH, DETAILS_KUNDE_PATH } from './shared'
-// import { HOME_PATH } from './shared'
-// import { AdminGuard } from './auth/admin.guard'
-// import { CreateKundeComponent } from './kunde/create-kunde/create-kunde.component'
-// import { CreateKundeGuard } from './kunde/create-kunde/create-kunde.guard'
+import { AdminGuard } from './auth/admin.guard'
+import { CreateKundeComponent } from './kunde/create-kunde/create-kunde.component'
+import { CreateKundeGuard } from './kunde/create-kunde/create-kunde.guard'
 import { DetailsKundeComponent } from './kunde/details-kunde/details-kunde.component'
 import { HomeComponent } from './home/home.component'
 import { SucheKundenComponent } from './kunde/suche-kunden/suche-kunden.component'
@@ -28,10 +27,10 @@ export const ROUTES = [
     //     component: UpdateKundeComponent,
     //     canActivate: [AdminGuard],
     // },
-    // {
-    //     path: 'create',
-    //     component: CreateKundeComponent,
-    //     canActivate: [AdminGuard],
-    //     canDeactivate: [CreateKundeGuard],
-    // },
+    {
+        path: 'create',
+        component: CreateKundeComponent,
+        canActivate: [AdminGuard],
+        canDeactivate: [CreateKundeGuard],
+    },
 ]
