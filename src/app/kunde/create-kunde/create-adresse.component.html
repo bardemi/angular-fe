@@ -1,48 +1,58 @@
 <div class="form-group row">
-    <label for="plzInput ortInput" class="col-2 form-control-label">
-        Adresse *
+    <label for="plzInput" class="col col-2 form-control-label">
+        Postleitzahl *
     </label>
-    <div class="col-10">
-        <div class="input-group form-row" style="padding-right: 0%" [formGroup]="form">
-            <div class="col-4">
-                <input
-                id="plzInput"
-                placeholder="5 stellige Plz"
-                required
-                class="form-control"
-                formControlName="plz"
-                [class.border-danger]="plz.invalid && plz.touched"
-                />
-            </div>
-            <div class="col" style="padding-right: 0%">
-                <input
-                    id="ortInput"
-                    placeholder="Ort"
-                    required
-                    class="form-control"
-                    formControlName="ort"
-                    [class.border-danger]="ort.invalid && ort.touched"
-                />
-            </div>
-        </div>
-
+    <div class="col col-2">
+        <input id="plzInput" placeholder="Plz" class="form-control"
+            autofocus formControlName="plz"
+            [class.border-danger]="plz.invalid && plz.touched">
         <div *ngIf="plz.invalid && plz.touched" class="alert alert-danger">
-            <fa-icon [icon]="faExclamationCircle"></fa-icon>
-            <span class="ml-1" *ngIf="plz.errors && plz.errors.required">
-                Eine Postleitzahl muss eingeben werden!
-            </span>
-            <span class="ml-1" *ngIf="plz.errors && plz.errors.pattern">
-                Eine Postleitzahl muss 5 Stellen haben!
-            </span>
+            <div *ngIf="plz.errors !== null && plz.errors.required">
+                <i class="fas fa-exclamation-circle"></i>
+                <span class="ml-1">
+                    Eine Postleitzahl muss eingegeben werden.
+                </span>
+            </div>
+            <div *ngIf="plz.errors !== null && plz.errors.minlength">
+                <i class="fas fa-exclamation-circle"></i>
+                <span class="ml-1">
+                    Eine Postleizahl muss 5 Zeichen lang sein.
+                </span>
+            </div>
+            <div *ngIf="plz.errors !== null && plz.errors.pattern">
+                <i class="fas fa-exclamation-circle"></i>
+                <span class="ml-1">
+                    Eine Postleitzahl muss mit einer Ziffer beginnen.
+                </span>
+            </div>
         </div>
+    </div>
+    <label for="ortInput" class="col col-1 form-control-label">
+        Ort *
+    </label>
+    <div class="col col-">
+        <input id="ortInput" placeholder="Ort" class="form-control"
+            autofocus formControlName="ort"
+            [class.border-danger]="ort.invalid && ort.touched">
         <div *ngIf="ort.invalid && ort.touched" class="alert alert-danger">
-            <fa-icon [icon]="faExclamationCircle"></fa-icon>
-            <span class="ml-1" *ngIf="ort.errors && ort.errors.required">
-                Ein Ort muss eingeben werden!
-            </span>
-            <span class="ml-1" *ngIf="ort.errors && ort.errors.minLength">
-                Ein Ort muss mindestens 2 Zeichen lang sein!
-            </span>
+            <div *ngIf="ort.errors !== null && ort.errors.required">
+                <i class="fas fa-exclamation-circle"></i>
+                <span class="ml-1">
+                    Ein Ort muss eingegeben werden.
+                </span>
+            </div>
+            <div *ngIf="ort.errors !== null && ort.errors.minlength">
+                <i class="fas fa-exclamation-circle"></i>
+                <span class="ml-1">
+                    Ein Ort muss mindestens 2 Zeichen lang sein.
+                </span>
+            </div>
+            <div *ngIf="ort.errors !== null && ort.errors.pattern">
+                <i class="fas fa-exclamation-circle"></i>
+                <span class="ml-1">
+                    Eine Ort muss mit einem Buchstaben beginnen.
+                </span>
+            </div>
         </div>
     </div>
 </div>
