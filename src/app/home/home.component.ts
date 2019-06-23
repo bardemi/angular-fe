@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser'
 @Component({
     selector: 'kunde-home',
     template: `
-        <h1 class="display-1 mt-4" [@fadeIn]="'in'">Hello World</h1>
+        <h1 class="display-1 mt-4" [@fadeIn]="'in'">Willkommen auf der Kundenverwaltung Webapp</h1>
     `,
     animations: [fadeIn],
 })
