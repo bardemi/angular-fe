@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { DetailsNachnameModule } from './details-nachname.module'
 import { DetailsGeschlechtModule } from './details-geschlecht.module'
 import { DetailsEmailModule } from './details-email.module'
-// import { DetailsGeburtsdatumModule } from './details-geburtsdatum.module'
+import { DetailsGeburtsdatumModule } from './details-geburtsdatum.module'
 // import { DetailsAdresseModule } from './details-adresse.module'
 import { DetailsHomepageModule } from './details-homepage.module'
 import { DetailsStammdatenComponent } from './details-stammdaten.component'
@@ -16,7 +16,7 @@ import { NgModule } from '@angular/core'
         DetailsNachnameModule,
         DetailsGeschlechtModule,
         DetailsEmailModule,
-        // DetailsGeburtsdatumModule,
+        DetailsGeburtsdatumModule,
         // DetailsAdresseModule,
         DetailsHomepageModule,
     ],
