@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Komponente mit dem Tag &lt;hs-create-nachname&gt;, um das Erfassungsformular
@@ -20,8 +19,6 @@ export class CreateNachnameComponent implements OnInit {
         Validators.minLength(2), // eslint-disable-line no-magic-numbers
         Validators.pattern(/^\w.*$/u),
     ])
-
-    readonly faExclamationCircle = faExclamationCircle
 
     ngOnInit() {
         console.log('CreateNachnameComponent.ngOnInit')
