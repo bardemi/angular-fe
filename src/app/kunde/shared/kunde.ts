@@ -248,7 +248,7 @@ export class Kunde {
      * @return true, falls der Teilstring im Buchtitel enthalten ist. Sonst
      *         false.
      */
-    containsTitel(nachname: string) {
+    containsNachname(nachname: string) {
         return this.nachname === undefined
             ? false
             : this.nachname.toLowerCase().includes(nachname.toLowerCase())

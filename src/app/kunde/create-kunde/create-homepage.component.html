@@ -3,22 +3,22 @@
         Homepage *
     </label>
     <div class="col col-10">
-        <input id="homepageInput" placeholder="Homepage" class="form-control"
-            required minlength="2" formControlName="homepage"
+        <input 
+            id="homepageInput"
+            placeholder="Homepage"
+            class="form-control"
+            required minlength="2"
+            formControlName="homepage"
             [class.border-danger]="homepage.invalid && homepage.touched">
+
         <div *ngIf="homepage.invalid && homepage.touched" class="alert alert-danger">
-            <div *ngIf="homepage.errors !== null && homepage.errors.required">
-                <i class="fas fa-exclamation-circle"></i>
-                <span class="ml-1">
-                    Eine Homepage muss eingegeben werden.
-                </span>
-            </div>
-            <div *ngIf="homepage.errors !== null && homepage.errors.homepage">
-                <i class="fas fa-exclamation-circle"></i>
-                <span class="ml-1">
-                    Die Homepage ist ung&uuml;ltig.
-                </span>
-            </div>
+            <fa-icon [icon]="faExclamationCircle"></fa-icon>
+            <span class="ml-1" *ngIf="homepage.errors && homepage.errors.required">
+                Eine Homepage muss eingegeben werden.
+            </span>
+            <span class="ml-1" *ngIf="homepage.errors && homepage.errors.minlength">
+                Eine Homepage muss mindestens 2 Zeichen lang sein.
+            </span>
         </div>
     </div>
 </div>
