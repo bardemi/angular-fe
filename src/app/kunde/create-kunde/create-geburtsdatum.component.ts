@@ -10,7 +10,7 @@ export class CreateGeburtsdatumComponent implements OnInit {
     @Input()
     readonly form!: FormGroup
 
-    readonly geburtsdatum = new FormControl(undefined)
+    readonly geburtsdatum = new FormControl('12.06.2019')
 
     readonly faExclamationCircle = faExclamationCircle
 
