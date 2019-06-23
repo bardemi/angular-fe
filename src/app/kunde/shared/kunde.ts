@@ -1,4 +1,4 @@
-// tslint:disable:max-file-line-count
+/* eslint-disable max-lines */
 
 import * as moment from 'moment'
 import 'moment/locale/de'
@@ -366,7 +366,6 @@ export class Kunde {
             familienstand: this.familienstand,
             interessen: this.interessen,
             adresse: this.adresse,
-            links: this.links,
         }
     }
 
