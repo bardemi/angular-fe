@@ -38,11 +38,12 @@
                                               d.h. Ereignis click an onSave() anbinden
                                               oder on-click="onSave"
                            [disabled]="..." fuer Input = Property Binding
+
+                           [disabled]="!form.valid"
                     -->
                     <button
                         class="btn btn-primary"
                         (click)="onSave()"
-                        [disabled]="!form.valid"
                     >
                         <fa-icon [icon]="faCheck"></fa-icon>
                         <span class="ml-1">Jetzt anlegen</span>

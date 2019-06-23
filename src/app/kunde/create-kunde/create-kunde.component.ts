@@ -49,10 +49,10 @@ export class CreateKundeComponent implements OnInit {
         //    valid     true/false
         //    dirty     true/false, falls der Wert geaendert wurde
 
-        if (!this.form.valid) {
-            console.log('Validierungsfehler:', this.form)
-            return false
-        }
+        // if (!this.form.valid) {
+        //     console.log('Validierungsfehler:', this.form)
+        //     return false
+        // }
 
         const neuerKunde = Kunde.fromForm(this.form.value)
         console.log('neuer Kunde:', neuerKunde)

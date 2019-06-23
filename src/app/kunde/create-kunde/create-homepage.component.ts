@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+// import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms'
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 /**
@@ -15,15 +16,16 @@ export class CreateHomepageComponent implements OnInit {
     @Input()
     readonly form!: FormGroup
 
+    readonly homepage = new FormControl('www.asdf.de')
     // Keine Vorbelegung bzw. der leere String, da es Placeholder gibt
     // Varianten fuer Validierung:
     //    serverseitig mittels Request/Response
     //    clientseitig bei den Ereignissen keyup, change, blur, ...
     // Ein Endbenutzer bewirkt staendig einen neuen Fehlerstatus
-    readonly homepage = new FormControl(undefined, [
-        Validators.required,
-        Validators.minLength(2), // eslint-disable-line no-magic-numbers
-    ])
+    // readonly homepage = new FormControl(undefined, [
+    //     Validators.required,
+    //     Validators.minLength(2), // eslint-disable-line no-magic-numbers
+    // ])
     // readonly titelGroup = new FormGroup({ homepage: this.homepage })
 
     readonly faExclamationCircle = faExclamationCircle
