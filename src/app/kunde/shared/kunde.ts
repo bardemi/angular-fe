@@ -243,7 +243,6 @@ export class Kunde {
         // let gebursdatum = new Date('1996-03-06')
 
         let user = new User('test', 'p')
-        let vers = 1
 
         const kunde = new Kunde(
             kundeForm._id,
