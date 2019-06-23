@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms'
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 
 /**
@@ -14,13 +14,13 @@ export class CreateUmsatzComponent implements OnInit {
     @Input()
     readonly form!: FormGroup
 
-    readonly umsatz = new FormControl(undefined, Validators.required)
-
+    readonly betrag: FormControl = new FormControl(undefined)
+    readonly waehrung: FormControl = new FormControl('')
     readonly faExclamationCircle = faExclamationCircle
 
     ngOnInit() {
         console.log('CreateUmsatzComponent.ngOnInit')
         // siehe formControlName innerhalb @Component({templateUrl: ...})
-        this.form.addControl('umsatz', this.umsatz)
+        this.form.addControl('umsatz', this.betrag)
     }
 }
